@@ -5,7 +5,7 @@ RUN yum -y groupinstall "Development Tools" "Development Libraries"; yum -y clea
 RUN yum install -y zlib-devel fftw-devel libxml2-devel glib2-devel; yum -y clean all
 RUN yum install -y wget; yum -y clean all
 RUN yum install -y python-devel python-numpy; yum -y clean all
-
+RUN yum install -y swig; yum -y clean all;
 RUN wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
 RUN rpm -ivh epel-release-7-9.noarch.rpm
 
@@ -37,7 +37,7 @@ RUN mkdir -p /opt/framel/src \
  && wget http://lappweb.in2p3.fr/virgo/FrameL/libframe-8.21.tar.gz -O - \
     | tar xzf - \
  && cd /opt/framel/src/libframe-8.21 \
- && ./configure \
+ && ./configure --enable-swig-python \
  && make \
  && make install
 
@@ -47,7 +47,7 @@ RUN mkdir -p /opt/metaio/src \
  && wget http://software.ligo.org/lscsoft/source/metaio-8.4.0.tar.gz -O - \
     | tar xzf - \
  && cd /opt/metaio/src/metaio-8.4.0 \
- && ./configure \
+ && ./configure --enable-swig-python \
  && make \
  && make install
 
