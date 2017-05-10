@@ -30,7 +30,7 @@ RUN yum install -y pcre-devel; yum -y clean all \
 RUN yum install -y hdf5-devel; yum -y clean all
 RUN wget https://bootstrap.pypa.io/get-pip.py \
  && python get-pip.py \
- && pip install virtualenv \
+ && pip install virtualenv 
 RUN virtualenv venv
 RUN source venv/bin/activate
 RUN pip install numpy scipy matplotlib astropy h5py healpy
