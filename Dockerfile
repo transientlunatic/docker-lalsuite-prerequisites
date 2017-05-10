@@ -7,15 +7,30 @@ RUN yum install -y wget; yum -y clean all
 RUN yum install -y python-devel python-numpy; yum -y clean all
 RUN wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
 RUN rpm -ivh epel-release-7-9.noarch.rpm
+#RUN wget http://software.ligo.org/lscsoft/scientific/7/x86_64/production/lscsoft-production-config-1.3-1.el7.noarch.rpm
+#RUN rpm -ivh lscsoft-production-config-1.3-1.el7.noarch.rpm#; yum clean all; yum makecache; yum update
 
-RUN yum clean all
-RUN yum makecache
+#RUN yum clean all
+#RUN yum makecache
 
-RUN yum install -y swig; yum -y clean all;
+# SWIG (latest version is not in RPM)
+#RUN yum install automake libtool; yum -y clean all
+RUN yum install -y pcre-devel; yum -y clean all \
+ && mkdir -p /opt/swig/src \
+ && cd /opt/swig/src \
+ && wget "https://downloads.sourceforge.net/project/swig/swig/swig-2.0.12/swig-2.0.12.tar.gz?r=&ts=1494449874&use_mirror=superb-dca2" -O - \
+    | tar xzf - \
+ && cd /opt/swig/src/swig-2.0.12 \
+ && ./configure \
+ && make \
+ && make install
+
+
+# Python dependencies
 RUN yum install -y hdf5-devel; yum -y clean all
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN python get-pip.py
-RUN pip install virtualenv
+RUN wget https://bootstrap.pypa.io/get-pip.py \
+ && python get-pip.py \
+ && pip install virtualenv \
 RUN virtualenv venv
 RUN source venv/bin/activate
 RUN pip install numpy scipy matplotlib astropy h5py healpy
