@@ -5,13 +5,13 @@ RUN yum -y groupinstall "Development Tools" "Development Libraries"; yum -y clea
 RUN yum install -y zlib-devel fftw-devel libxml2-devel glib2-devel; yum -y clean all
 RUN yum install -y wget; yum -y clean all
 RUN yum install -y python-devel python-numpy; yum -y clean all
-RUN yum install -y swig; yum -y clean all;
 RUN wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
 RUN rpm -ivh epel-release-7-9.noarch.rpm
 
 RUN yum clean all
 RUN yum makecache
 
+RUN yum install -y swig; yum -y clean all;
 RUN yum install -y hdf5-devel; yum -y clean all
 RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
