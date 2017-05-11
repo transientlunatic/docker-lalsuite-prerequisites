@@ -7,21 +7,13 @@ RUN yum install -y wget; yum -y clean all
 RUN yum install -y python-devel python-numpy; yum -y clean all
 RUN wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
 RUN rpm -ivh epel-release-7-9.noarch.rpm
-#RUN wget http://software.ligo.org/lscsoft/scientific/7/x86_64/production/lscsoft-production-config-1.3-1.el7.noarch.rpm
-#RUN rpm -ivh lscsoft-production-config-1.3-1.el7.noarch.rpm#; yum clean all; yum makecache; yum update
-
-#RUN yum clean all
-#RUN yum makecache
-
-# SWIG (latest version is not in RPM)
-#RUN yum install automake libtool; yum -y clean all
 RUN yum install -y pcre-devel; yum -y clean all \
  && mkdir -p /opt/swig/src \
  && cd /opt/swig/src \
  && wget "https://downloads.sourceforge.net/project/swig/swig/swig-2.0.12/swig-2.0.12.tar.gz?r=&ts=1494449874&use_mirror=superb-dca2" -O - \
     | tar xzf - \
  && cd /opt/swig/src/swig-2.0.12 \
- && ./configure \
+ && ./configure --prefix=/usr/local/ \
  && make \
  && make install
 
@@ -42,7 +34,7 @@ RUN mkdir -p /opt/gsl/src \
  && wget http://mirrors.ibiblio.org/gnu/ftp/gnu/gsl/gsl-1.16.tar.gz -O - \
     | tar xzf - \
  && cd /opt/gsl/src/gsl-1.16 \
- && ./configure \
+ && ./configure --prefix=/usr/local/ \
  && make \
  && make install
 
@@ -52,7 +44,7 @@ RUN mkdir -p /opt/framel/src \
  && wget http://lappweb.in2p3.fr/virgo/FrameL/libframe-8.21.tar.gz -O - \
     | tar xzf - \
  && cd /opt/framel/src/libframe-8.21 \
- && ./configure --enable-swig-python \
+ && ./configure --enable-swig-python --prefix=/usr/local/ \
  && make \
  && make install
 
@@ -62,7 +54,7 @@ RUN mkdir -p /opt/metaio/src \
  && wget http://software.ligo.org/lscsoft/source/metaio-8.4.0.tar.gz -O - \
     | tar xzf - \
  && cd /opt/metaio/src/metaio-8.4.0 \
- && ./configure --enable-swig-python \
+ && ./configure --enable-swig-python --prefix=/usr/local/ \
  && make \
  && make install
 
