@@ -3,7 +3,7 @@ MAINTAINER Daniel Williams <daniel.williams@ligo.org>
 
 RUN yum -y groupinstall "Development Tools" "Development Libraries"; yum -y clean all
 RUN yum install -y zlib-devel fftw-devel libxml2-devel glib2-devel; yum -y clean all
-RUN yum install -y wget; yum -y clean all
+RUN yum install -y wget tar which; yum -y clean all
 RUN yum install -y python-devel python-numpy; yum -y clean all
 RUN wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
 RUN rpm -ivh epel-release-7-9.noarch.rpm
